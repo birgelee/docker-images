@@ -96,7 +96,7 @@ class MpicCoordinatorLambdaHandler:
         service_name = self.arns_per_perspective_per_check_type[check_type][perspective.rir + "." + perspective.code]
         
         r = requests.post("http://" + service_name + "/" + str(check_type), json=check_request.model_dump())
-        print(r.text)
+        #print(r.text)
         return self.check_response_adapter.validate_json(r.text)
         #response = client.invoke(  # AWS Lambda-specific structure
         #        FunctionName=function_name,
