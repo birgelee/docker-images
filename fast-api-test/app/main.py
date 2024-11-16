@@ -16,6 +16,8 @@ from open_mpic_core.mpic_coordinator.mpic_coordinator import MpicCoordinator, Mp
 from open_mpic_core.common_domain.enum.check_type import CheckType
 from open_mpic_core.common_domain.remote_perspective import RemotePerspective
 
+import requests
+
 import os
 import json
 
@@ -93,7 +95,8 @@ class MpicCoordinatorLambdaHandler:
         #client = boto3.client('lambda', perspective.code)
         service_name = self.arns_per_perspective_per_check_type[check_type][perspective.rir + "." + perspective.code]
         
-        r = requests.post("http://" + service_name + "/" + str(check_type), json=check_request.model_dump_json())
+        r = requests.post("http://" + service_name + "/" + str(check_type), json=check_request.model_dump())
+        print(r.text)
         return self.check_response_adapter.validate_json(r.text)
         #response = client.invoke(  # AWS Lambda-specific structure
         #        FunctionName=function_name,
@@ -108,19 +111,20 @@ class MpicCoordinatorLambdaHandler:
         #    raise ve
 
     def process_invocation(self, mpic_request: MpicRequest) -> dict:
-        try:
-            mpic_response = self.mpic_coordinator.coordinate_mpic(mpic_request)
-            return {
-                'statusCode': 200,
-                'headers': {'Content-Type': 'application/json'},
-                'body': mpic_response.model_dump_json()
-            }
-        except MpicRequestValidationError as e:  # TODO catch ALL exceptions here?
-            return {
-                'statusCode': 500,
-                'headers': {'Content-Type': 'application/json'},
-                'body': json.dumps({'error': str(e)})
-            }
+        return self.mpic_coordinator.coordinate_mpic(mpic_request)
+        #try:
+        #    mpic_response = self.mpic_coordinator.coordinate_mpic(mpic_request)
+        #    return {
+        #        'statusCode': 200,
+        #        'headers': {'Content-Type': 'application/json'},
+        #        'body': mpic_response.model_dump_json()
+        #    }
+        #except MpicRequestValidationError as e:  # TODO catch ALL exceptions here?
+        #    return {
+        #        'statusCode': 500,
+        #        'headers': {'Content-Type': 'application/json'},
+        #        'body': json.dumps({'error': str(e)})
+        #    }
 
 
 # Global instance for Lambda runtime

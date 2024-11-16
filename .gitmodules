@@ -1,3 +1,11 @@
 [submodule "fast-api-test/app/open_mpic_core_python"]
 	path = fast-api-test/app/open_mpic_core_python
 	url = https://github.com/open-mpic/open-mpic-core-python.git
+
+[submodule "fast-api-caa/app/open_mpic_core_python"]
+        path = fast-api-caa/app/open_mpic_core_python
+        url = https://github.com/open-mpic/open-mpic-core-python.git
+
+[submodule "fast-api-dcv/app/open_mpic_core_python"]
+        path = fast-api-dcv/app/open_mpic_core_python
+        url = https://github.com/open-mpic/open-mpic-core-python.git

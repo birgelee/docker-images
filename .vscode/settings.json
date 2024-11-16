@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./fast-api-dcv/app/open_mpic_core_python/src"
+    ]
+}

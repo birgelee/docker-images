@@ -2,7 +2,7 @@ available_regions:
   -
     code: "test1"
     name: "Africa (Cape Town)"
-    rir: "afrinic"
+    rir: "arin"
     too_close_codes: []
   -
     code: "test2"
