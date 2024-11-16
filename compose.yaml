@@ -1,0 +1,13 @@
+services:
+  fastapi:
+    build:
+      context: "fast-api-test"
+    environment:
+      perspective_names: "arin.test1|arin.test2"
+      dcv_service_names: "test1dcv|test2dcv"
+      caa_service_names: "test1caa|test2caa"
+      default_perspective_count: "2"
+      enforce_distinct_rir_regions: "1"
+      hash_secret: "abc"
+    ports:
+    - "80:80/tcp"
